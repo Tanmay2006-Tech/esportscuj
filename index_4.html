@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dominion 2026 — E-Sports Club CUJ | Central University of Jammu</title>
+<meta name="description" content="Dominion 2026, the Engineering Day esports event from E-Sports Club CUJ. BGMI and Free Fire, 15 September 2026, Pre-Fabricated Building, Central University of Jammu.">
+<link rel="icon" href="img/favicon.png" type="image/png">
+<meta property="og:title" content="Dominion 2026 — E-Sports Club CUJ">
+<meta property="og:description" content="Engineering Day esports event. BGMI and Free Fire. 15 September 2026, Central University of Jammu.">
+<meta property="og:image" content="img/dominion-2026-poster.png">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   E-SPORTS CLUB CUJ — v1.0
+   Static site. Light theme. One outbound registration link.
+   ============================================================ */
+:root{
+  --bg:#EAE8E1;
+  --surface:#E2E0D8;
+  --surface-2:#D6D3C9;
+  --text:#12141B;
+  --text-muted:#5C6068;
+  --border:rgba(18,20,27,.18);
+  --border-strong:rgba(18,20,27,.42);
+  --accent:#1A2AE8;
+  --accent-fg:#F2F1EC;
+  --ink:#0A0C14;
+  --ink-text:#EDEBE4;
+  --rail:70px;
+  --pad:clamp(18px,4vw,68px);
+}
+@media (max-width:1080px){:root{--rail:0px}}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+ul,ol{margin:0;padding:0;list-style:none}
+h1,h2,h3,h4,p,dl,dd,figure{margin:0}
+
+body{
+  font-family:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  background:var(--bg);color:var(--text);
+  font-size:15px;line-height:1.5;
+  font-variation-settings:'wdth' 100,'wght' 400;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+
+.dsp{font-variation-settings:'wdth' 118,'wght' 830;line-height:.9;letter-spacing:-.018em;text-transform:uppercase;font-weight:830}
+.num{font-variation-settings:'wdth' 64,'wght' 870;line-height:.85;font-variant-numeric:tabular-nums;font-weight:870}
+.meta{font-variation-settings:'wdth' 100,'wght' 620;font-size:.625rem;letter-spacing:.15em;text-transform:uppercase;font-weight:620}
+.muted{color:var(--text-muted)}
+.acc{color:var(--accent)}
+.t-hero{font-size:clamp(2.4rem,7.4vw,6.2rem)}
+.t-sec{font-size:clamp(1.5rem,3.2vw,2.7rem)}
+
+.shell{padding-left:var(--rail)}
+.wrap{padding-left:var(--pad);padding-right:var(--pad)}
+.rule{height:1px;background:var(--border);border:0;margin:0;transform-origin:left}
+.rule--draw{transform:scaleX(0);transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.rule--draw.is-in{transform:scaleX(1)}
+.sec__head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;padding-bottom:16px;flex-wrap:wrap}
+.sec__tag{padding:4px 8px;border:1px solid var(--border-strong);color:var(--text-muted);white-space:nowrap}
+
+/* rail */
+.rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:60;border-right:1px solid var(--border);background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:16px 0}
+@media (max-width:1080px){.rail{display:none}}
+.rail__mark{width:36px;height:36px;background:var(--ink);display:grid;place-items:center;overflow:hidden}
+.rail__mark img{width:100%;height:100%;object-fit:cover}
+.rail__spine{writing-mode:vertical-rl;transform:rotate(180deg);font-size:.5625rem;letter-spacing:.28em;color:var(--text-muted);font-variation-settings:'wdth' 100,'wght' 600;text-transform:uppercase}
+.rail__prog{position:absolute;right:-1px;top:0;width:2px;background:var(--accent);height:0}
+.rail__uni{width:30px;opacity:.85}
+
+/* bar */
+.bar{position:fixed;top:0;left:var(--rail);right:0;z-index:55;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 var(--pad);height:58px;border-bottom:1px solid transparent;transition:background-color .25s,border-color .25s}
+.bar.is-stuck{background:var(--bg);border-bottom-color:var(--border)}
+.bar__brand{display:none;align-items:center;gap:9px}
+@media (max-width:1080px){.bar__brand{display:flex}}
+.bar__brand img{width:28px;height:28px;object-fit:contain}
+.bar__brand b{font-variation-settings:'wdth' 62,'wght' 900;font-size:.9rem;text-transform:uppercase}
+.nav{display:flex;align-items:center;gap:22px}
+.nav__links{display:flex;gap:22px}
+@media (max-width:1080px){.nav__links{display:none}}
+.nav__links a{position:relative;padding:4px 0;color:var(--text-muted);transition:color .18s}
+.nav__links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.nav__links a:hover,.nav__links a:focus-visible{color:var(--text)}
+.nav__links a:hover::after,.nav__links a:focus-visible::after{transform:scaleX(1);transform-origin:left}
+.burger{display:none;width:32px;height:26px;border:1px solid var(--border-strong);place-items:center}
+@media (max-width:1080px){.burger{display:grid}}
+.burger span{display:block;width:13px;height:1px;background:var(--text);position:relative}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:13px;height:1px;background:var(--text)}
+.burger span::before{top:-4px}.burger span::after{top:4px}
+.sheet{position:fixed;inset:0;z-index:70;background:var(--bg);transform:translateY(-100%);transition:transform .45s cubic-bezier(.76,0,.24,1);display:flex;flex-direction:column;padding:16px var(--pad) 28px}
+.sheet[hidden]{display:none}
+.sheet.is-open{transform:translateY(0)}
+.sheet__top{display:flex;justify-content:flex-end;height:40px;align-items:center}
+.sheet__nav{margin-top:auto;display:flex;flex-direction:column}
+.sheet__nav a{font-size:clamp(1.5rem,7vw,2.2rem);padding:9px 0;border-bottom:1px solid var(--border)}
+.sheet__foot{margin-top:24px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--text);color:var(--bg);padding:12px 18px;font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;font-variation-settings:'wdth' 100,'wght' 650;position:relative;overflow:hidden;white-space:nowrap}
+.btn span{position:relative;z-index:2;transition:color .25s}
+.btn::before{content:"";position:absolute;inset:0;background:var(--accent);transform:translateY(101%);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.btn:hover::before,.btn:focus-visible::before{transform:translateY(0)}
+.btn:hover span,.btn:focus-visible span{color:var(--accent-fg)}
+.btn--accent{background:var(--accent);color:var(--accent-fg)}
+.btn--accent::before{background:var(--text)}
+.btn--accent:hover span,.btn--accent:focus-visible span{color:var(--bg)}
+.btn--sm{padding:9px 13px;font-size:.5625rem;gap:9px}
+.btn.is-pending{background:transparent;color:var(--text-muted);border:1px dashed var(--border-strong);cursor:not-allowed}
+.btn.is-pending::before{display:none}
+.btn.is-pending:hover span{color:var(--text-muted)}
+.feat .btn.is-pending{color:rgba(237,235,228,.6);border-color:rgba(237,235,228,.35)}
+.final .btn.is-pending{color:rgba(242,241,236,.8);border-color:rgba(242,241,236,.55)}
+
+/* ============ 1. HERO ============ */
+.hero{padding-top:86px}
+.hero__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:clamp(24px,4vw,60px);align-items:end}
+@media (max-width:900px){.hero__grid{grid-template-columns:1fr;gap:28px}}
+.hero__marks{display:flex;align-items:center;gap:14px;margin-bottom:clamp(18px,3vw,32px)}
+.hero__marks img{height:44px;width:auto;object-fit:contain}
+.hero__marks .m-club{height:48px;background:var(--ink);padding:0}
+.hero__marks span{width:1px;height:30px;background:var(--border-strong)}
+.hero__line{overflow:hidden;display:block}
+.hero__line>span{display:block;transform:translateY(102%)}
+.hero.is-ready .hero__line>span{transform:translateY(0);transition:transform .95s cubic-bezier(.16,1,.3,1)}
+.hero.is-ready .hero__line:nth-child(2)>span{transition-delay:.09s}
+.hero__b>span{display:flex;align-items:flex-end;gap:clamp(10px,1.6vw,20px);flex-wrap:wrap}
+.hero__cuj{background:var(--accent);color:var(--accent-fg);padding:0 clamp(7px,.9vw,14px) .05em;display:inline-block}
+.hero__est{font-size:.625rem;letter-spacing:.2em;padding-bottom:1em;font-variation-settings:'wdth' 100,'wght' 600;text-transform:uppercase;color:var(--text-muted);line-height:1.5}
+.hero__stmt{font-size:clamp(.9375rem,1.3vw,1.0625rem);line-height:1.35;max-width:36ch;margin-top:clamp(18px,2.6vw,30px);font-variation-settings:'wdth' 104,'wght' 520}
+
+.reg{border:1px solid var(--border-strong);padding:18px}
+.reg__top{display:flex;align-items:center;gap:9px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.dot{width:6px;height:6px;background:var(--accent);border-radius:50%;flex:none;position:relative}
+.dot::after{content:"";position:absolute;inset:-4px;border:1px solid var(--accent);border-radius:50%;opacity:.55;animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.6);opacity:.7}100%{transform:scale(1.5);opacity:0}}
+.reg__row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--border)}
+.reg__row dd{font-variation-settings:'wdth' 100,'wght' 640;text-align:right;font-size:.875rem}
+.reg .btn{width:100%;justify-content:space-between;margin-top:14px}
+.reg__note{margin-top:9px;display:block;text-align:center}
+
+.hero__base{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:20px 0 16px;border-top:1px solid var(--border);margin-top:clamp(20px,3vw,36px);opacity:0}
+.hero.is-ready .hero__base{opacity:1;transition:opacity .7s ease .45s}
+.ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:7px 0;display:flex;margin-left:calc(var(--pad)*-1);margin-right:calc(var(--pad)*-1)}
+.ticker__t{display:flex;flex-shrink:0;gap:32px;padding-right:32px;animation:slide 32s linear infinite}
+.ticker span{font-size:.625rem;letter-spacing:.2em;text-transform:uppercase;font-variation-settings:'wdth' 100,'wght' 600;white-space:nowrap}
+@keyframes slide{to{transform:translateX(-100%)}}
+
+/* ============ 2. SNAPSHOT ============ */
+.snap{padding:clamp(38px,5.5vw,66px) 0}
+.snap__row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:end;margin-top:clamp(20px,3vw,36px)}
+@media (max-width:760px){.snap__row{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:26px}}
+.snap__item{padding-right:16px;border-right:1px solid var(--border)}
+.snap__item:last-child{border-right:0}
+@media (max-width:760px){.snap__item:nth-child(2n){border-right:0}}
+.snap__n{font-size:clamp(2rem,4.6vw,3.9rem);display:block}
+.snap__item:nth-child(4) .snap__n{color:var(--accent)}
+.snap__l{display:block;margin-top:11px;padding-top:8px;border-top:1px solid var(--border-strong)}
+
+/* ============ 3. DOMINION ============ */
+.feat{background:var(--ink);color:var(--ink-text);padding:clamp(34px,5vw,62px) 0}
+.feat__top{display:flex;align-items:center;gap:12px;margin-bottom:clamp(22px,3.4vw,38px)}
+.feat__main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:clamp(22px,4vw,58px);align-items:start}
+@media (max-width:900px){.feat__main{grid-template-columns:1fr}}
+.feat__grid{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(18px,3.4vw,44px);align-items:start}
+@media (max-width:680px){.feat__grid{grid-template-columns:1fr;gap:20px}}
+.feat__date{font-size:clamp(2.6rem,6.4vw,5.2rem);white-space:nowrap;display:block}
+.feat__mo{display:block;font-size:.625rem;letter-spacing:.26em;margin-top:12px;font-variation-settings:'wdth' 100,'wght' 620;text-transform:uppercase}
+.feat__name{font-size:clamp(1.8rem,4.4vw,3.4rem)}
+.feat__ed{display:block;margin:8px 0 16px;color:#8391FF}
+.feat__spec{display:flex;flex-wrap:wrap;gap:12px 26px;padding-top:14px;border-top:1px solid rgba(180,180,180,.28)}
+.feat__spec div{min-width:96px}
+.feat__spec dt{font-size:.5625rem;letter-spacing:.16em;text-transform:uppercase;opacity:.6;font-variation-settings:'wdth' 100,'wght' 600;margin-bottom:4px}
+.feat__spec dd{font-variation-settings:'wdth' 100,'wght' 600;font-size:.875rem}
+.feat .btn{background:var(--accent);color:var(--accent-fg);margin-top:22px}
+.feat .btn::before{background:var(--ink-text)}
+.feat .btn:hover span,.feat .btn:focus-visible span{color:var(--ink)}
+.feat__poster{border:1px solid rgba(180,180,180,.25)}
+.feat__poster img{width:100%;height:auto}
+.feat__pcap{display:block;margin-top:9px;opacity:.55}
+.titles{display:grid;grid-template-columns:1fr 1fr;margin-top:clamp(26px,4vw,44px);border-top:1px solid rgba(180,180,180,.28)}
+@media (max-width:620px){.titles{grid-template-columns:1fr}}
+.titles__i{padding:clamp(16px,2.4vw,24px) 18px clamp(20px,3vw,30px) 0;border-right:1px solid rgba(180,180,180,.22)}
+.titles__i:last-child{border-right:0}
+@media (max-width:620px){.titles__i{border-right:0;border-bottom:1px solid rgba(180,180,180,.22);padding-right:0}}
+.titles__n{font-size:clamp(1.3rem,3vw,2.2rem);font-variation-settings:'wdth' 92,'wght' 830;text-transform:uppercase;line-height:1;display:block}
+.titles__f{display:block;margin-top:9px;opacity:.65}
+
+/* ============ 4. RULES ============ */
+.rules{padding:clamp(44px,7vw,84px) 0 clamp(20px,3vw,36px)}
+.rules__list{margin-top:clamp(18px,3vw,30px);border-top:1px solid var(--border-strong)}
+.rules__i{display:grid;grid-template-columns:2.4rem minmax(0,1fr);gap:14px clamp(14px,2.4vw,30px);padding:clamp(13px,1.9vw,20px) 0;border-bottom:1px solid var(--border);align-items:baseline}
+.rules__i b{font-variation-settings:'wdth' 62,'wght' 870;font-size:1.05rem;color:var(--accent);font-variant-numeric:tabular-nums}
+.rules__t{font-variation-settings:'wdth' 106,'wght' 720;font-size:1rem;display:block;text-transform:uppercase;letter-spacing:-.005em}
+.rules__d{display:block;margin-top:5px;color:var(--text-muted);max-width:60ch;font-size:.9375rem}
+
+/* ============ 5. ACHIEVEMENTS ============ */
+.ach{padding:clamp(40px,6vw,80px) 0 clamp(26px,4vw,48px)}
+.ach__list{margin-top:clamp(18px,3vw,32px);border-top:1px solid var(--border-strong)}
+.ach__i{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px clamp(16px,3vw,40px);align-items:center;padding:clamp(14px,2vw,22px) 0;border-bottom:1px solid var(--border);transition:padding-left .35s cubic-bezier(.16,1,.3,1)}
+.ach__i:hover{padding-left:12px}
+@media (max-width:720px){.ach__i{grid-template-columns:auto minmax(0,1fr);row-gap:8px}.ach__r{grid-column:1/3;justify-self:start;text-align:left}}
+.ach__pos{width:clamp(46px,6vw,66px);text-align:center;padding:8px 4px;border:1px solid var(--border-strong)}
+.ach__pos b{display:block;font-variation-settings:'wdth' 62,'wght' 880;font-size:clamp(1.1rem,2vw,1.6rem);line-height:1}
+.ach__pos span{display:block;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;margin-top:4px;font-variation-settings:'wdth' 100,'wght' 620}
+.ach__i[data-gold] .ach__pos{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.ach__ttl{font-size:clamp(1rem,1.9vw,1.5rem);font-variation-settings:'wdth' 112,'wght' 780;text-transform:uppercase;line-height:1.05;letter-spacing:-.01em}
+.ach__sub{margin-top:5px}
+.ach__r{justify-self:end;text-align:right}
+
+/* ============ 6. ARCHIVE ============ */
+.arch{padding:clamp(30px,4vw,56px) 0 clamp(40px,6vw,76px)}
+.ev{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:clamp(18px,3.4vw,52px);padding:clamp(22px,3.4vw,40px) 0;border-top:1px solid var(--border);align-items:start}
+.ev:last-of-type{border-bottom:1px solid var(--border)}
+.ev:nth-of-type(even) .ev__fig{order:2}
+@media (max-width:800px){.ev{grid-template-columns:1fr;gap:18px}.ev:nth-of-type(even) .ev__fig{order:0}}
+.ev__fig{position:relative;overflow:hidden;background:var(--surface-2)}
+.ev__fig img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.ev:hover .ev__fig img{transform:scale(1.03)}
+.ev__yr{position:absolute;top:0;left:0;z-index:2;background:var(--accent);color:var(--accent-fg);padding:6px 10px;font-variation-settings:'wdth' 62,'wght' 870;font-size:1rem;font-variant-numeric:tabular-nums}
+.ev__n{font-size:clamp(1.4rem,3.4vw,2.6rem);display:block}
+.ev__meta{margin-top:14px;border-top:1px solid var(--border)}
+.ev__meta div{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--border)}
+.ev__meta dd{font-variation-settings:'wdth' 100,'wght' 620;font-size:.875rem;text-align:right}
+.ev__note{margin-top:14px;max-width:56ch;color:var(--text-muted);font-size:.9375rem;line-height:1.5}
+
+/* ============ 7. TEAM ============ */
+.roster{padding:clamp(46px,7vw,90px) 0 clamp(36px,5vw,66px)}
+.core{display:grid;grid-template-columns:1fr 1fr;margin-top:clamp(18px,3vw,32px);border-top:1px solid var(--border-strong)}
+@media (max-width:680px){.core{grid-template-columns:1fr}}
+.core__i{padding:clamp(16px,2.4vw,26px) clamp(14px,2vw,24px) clamp(20px,3vw,32px) 0;border-bottom:1px solid var(--border);border-right:1px solid var(--border)}
+.core__i:last-child{border-right:0}
+@media (max-width:680px){.core__i{border-right:0;padding-right:0}}
+.core__idx{font-variation-settings:'wdth' 62,'wght' 880;font-size:.9375rem;color:var(--accent);display:block;margin-bottom:10px}
+.core__role{font-size:.625rem;letter-spacing:.15em;text-transform:uppercase;font-variation-settings:'wdth' 100,'wght' 620;color:var(--text-muted);display:block;margin-bottom:6px}
+.core__name{font-size:clamp(1.15rem,2.2vw,1.7rem);font-variation-settings:'wdth' 112,'wght' 790;text-transform:uppercase;line-height:1.05;display:block}
+.core__yr{display:block;margin-top:8px}
+.core__tel{display:inline-block;margin-top:10px;border-bottom:1px solid var(--border-strong);transition:color .18s,border-color .18s}
+.core__tel:hover,.core__tel:focus-visible{color:var(--accent);border-color:var(--accent)}
+.mlist{margin-top:clamp(34px,5vw,64px);border-top:1px solid var(--border-strong)}
+.mrow{display:grid;grid-template-columns:2.6rem minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--border);transition:background-color .22s,padding-left .3s cubic-bezier(.16,1,.3,1)}
+.mrow:hover{background:var(--surface);padding-left:12px}
+.mrow__n{font-variation-settings:'wdth' 102,'wght' 700;font-size:1rem}
+.mrow__i{font-variation-settings:'wdth' 62,'wght' 800;font-variant-numeric:tabular-nums;color:var(--text-muted);font-size:.875rem}
+.mrow--h:hover{background:none;padding-left:0}
+
+/* ============ 8. ABOUT ============ */
+.about{padding:clamp(46px,7vw,90px) 0 clamp(36px,5vw,68px)}
+.about__grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(22px,4vw,64px);align-items:start}
+@media (max-width:900px){.about__grid{grid-template-columns:1fr;gap:24px}}
+.about__h{font-size:clamp(2.2rem,6.2vw,5rem);letter-spacing:-.03em}
+.about__h em{font-style:normal;color:var(--accent)}
+.about__body p{font-size:.9375rem;line-height:1.55;max-width:46ch;font-variation-settings:'wdth' 100,'wght' 420}
+.about__body p+p{margin-top:14px}
+.princ{margin-top:clamp(34px,5vw,66px);border-top:1px solid var(--border-strong)}
+.princ__i{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.6fr);gap:14px clamp(18px,3.4vw,50px);padding:clamp(15px,2.2vw,24px) 0;border-bottom:1px solid var(--border);align-items:baseline}
+@media (max-width:760px){.princ__i{grid-template-columns:1fr;gap:8px}}
+.princ__w{font-size:clamp(1.3rem,3.2vw,2.4rem)}
+.princ__d{max-width:56ch;line-height:1.45;font-variation-settings:'wdth' 100,'wght' 420;font-size:.9375rem}
+
+/* ============ 9. COMMUNITY ============ */
+.comm{padding:0 0 clamp(40px,6vw,76px)}
+.link{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;padding:clamp(18px,2.8vw,32px) 0;border-top:1px solid var(--border)}
+.link:last-of-type{border-bottom:1px solid var(--border)}
+.link__fill{position:absolute;inset:0;background:var(--accent);transform:scaleY(0);transform-origin:bottom;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.link:hover .link__fill,.link:focus-visible .link__fill{transform:scaleY(1)}
+.link__in,.link__a{position:relative;z-index:2;transition:color .28s,transform .45s cubic-bezier(.16,1,.3,1)}
+.link:hover .link__in,.link:focus-visible .link__in{color:var(--accent-fg);transform:translateX(14px)}
+.link:hover .link__a,.link:focus-visible .link__a{color:var(--accent-fg);transform:translate(5px,-5px)}
+.link__n{font-size:clamp(1.4rem,3.4vw,2.6rem);line-height:.95;display:block}
+.link__s{display:block;margin-top:8px}
+.link__a{font-size:clamp(1.1rem,2vw,1.6rem)}
+
+/* ============ 10. FINAL ============ */
+.final{background:var(--accent);color:var(--accent-fg);padding:clamp(46px,7vw,96px) 0;overflow:hidden}
+.final__h{font-size:clamp(2.4rem,8vw,6.4rem);letter-spacing:-.035em}
+.final__b{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-top:clamp(20px,3vw,40px);padding-top:18px;border-top:1px solid rgba(242,241,236,.35)}
+.final .btn{background:var(--accent-fg);color:var(--accent)}
+.final .btn::before{background:var(--ink)}
+.final .btn:hover span,.final .btn:focus-visible span{color:var(--ink-text)}
+
+/* ============ 11. FOOTER ============ */
+.foot{padding:clamp(34px,5vw,62px) 0 22px}
+.foot__grid{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(2,minmax(0,1fr));gap:28px}
+@media (max-width:860px){.foot__grid{grid-template-columns:1fr 1fr}}
+.foot__marks{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.foot__marks img{height:38px;width:auto;object-fit:contain}
+.foot__mark{font-size:clamp(1.2rem,2.4vw,1.8rem);line-height:.95}
+.foot__col li{margin-top:8px}
+.foot__col a{color:var(--text-muted);transition:color .18s;font-size:.875rem}
+.foot__col a:hover,.foot__col a:focus-visible{color:var(--accent)}
+.foot__bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:clamp(28px,4vw,52px);padding-top:14px;border-top:1px solid var(--border)}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--accent);color:var(--accent-fg);padding:11px 16px}
+.skip:focus{left:var(--pad);top:9px}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .hero__line>span{transform:none}
+  .hero__base{opacity:1}
+  .rule--draw{transform:scaleX(1)}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="rail" aria-hidden="true">
+  <div class="rail__prog" id="prog"></div>
+  <div class="rail__mark"><img src="img/logo-esports-cuj.png" alt=""></div>
+  <div class="rail__spine">E-Sports Club — Central University of Jammu</div>
+  <img class="rail__uni" src="img/logo-cuj-university.png" alt="">
+</div>
+
+<header class="bar" id="bar">
+  <a class="bar__brand" href="#top">
+    <img src="img/logo-esports-cuj.png" alt="E-Sports Club CUJ">
+    <b>E-Sports CUJ</b>
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <ul class="nav__links meta">
+      <li><a href="#dominion">Dominion</a></li>
+      <li><a href="#rules">Entry</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#archive">Archive</a></li>
+      <li><a href="#team">Team</a></li>
+    </ul>
+    <a class="btn btn--accent btn--sm" data-link="register" href="#"><span>Register</span><span aria-hidden="true">&rarr;</span></a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="sheet" aria-label="Open menu"><span></span></button>
+  </nav>
+</header>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet__top"><button class="burger" id="burgerClose" aria-label="Close menu"><span></span></button></div>
+  <nav class="sheet__nav dsp" aria-label="Mobile">
+    <a href="#dominion">Dominion</a><a href="#rules">Entry</a><a href="#achievements">Achievements</a>
+    <a href="#archive">Archive</a><a href="#team">Team</a><a href="#about">About</a>
+  </nav>
+  <div class="sheet__foot"><a class="btn btn--accent" data-link="register" href="#" style="width:100%;justify-content:space-between"><span>Register for Dominion</span><span aria-hidden="true">&rarr;</span></a></div>
+</div>
+
+<div class="shell" id="top">
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero wrap">
+    <div class="hero__marks">
+      <img src="img/logo-cuj-university.png" alt="Central University of Jammu">
+      <span aria-hidden="true"></span>
+      <img class="m-club" src="img/logo-esports-cuj.png" alt="E-Sports Club CUJ">
+    </div>
+    <div class="hero__grid">
+      <div>
+        <h1 class="dsp t-hero" style="margin:0">
+          <span class="hero__line"><span>E&#8209;Sports</span></span>
+          <span class="hero__line hero__b"><span>
+            <span class="hero__cuj">CUJ</span>
+            <span class="hero__est">Central University<br>of Jammu</span>
+          </span></span>
+        </h1>
+        <p class="hero__stmt">The competitive gaming community of Central University of Jammu. Dominion 2026, our Engineering Day event, runs on 15 September.</p>
+      </div>
+
+      <div class="reg">
+        <div class="reg__top"><span class="dot" aria-hidden="true"></span><span class="meta">Registration open</span></div>
+        <dl>
+          <div class="reg__row"><dt class="meta muted">Event</dt><dd id="rEvent"></dd></div>
+          <div class="reg__row"><dt class="meta muted">Plays</dt><dd id="rDate"></dd></div>
+          <div class="reg__row"><dt class="meta muted">Titles</dt><dd id="rTitles"></dd></div>
+          <div class="reg__row"><dt class="meta muted">Entry</dt><dd id="rEntry"></dd></div>
+          <div class="reg__row"><dt class="meta muted">Closes</dt><dd id="rClose"></dd></div>
+        </dl>
+        <a class="btn btn--accent" data-link="register" href="#"><span>Register</span><span aria-hidden="true">&rarr;</span></a>
+        <span class="meta muted reg__note" data-note="register"></span>
+      </div>
+    </div>
+
+    <div class="hero__base">
+      <span class="meta muted">Jammu &amp; Kashmir, India</span>
+      <span class="meta muted">Open to all departments</span>
+      <span class="meta acc">Engineering Day 2026</span>
+    </div>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__t" id="tk"></div><div class="ticker__t" id="tk2"></div>
+    </div>
+  </section>
+
+  <!-- ============ SNAPSHOT ============ -->
+  <section class="snap wrap" aria-labelledby="snap-h">
+    <div class="sec__head" style="padding-bottom:0"><h2 class="meta" id="snap-h">Club snapshot</h2></div>
+    <div class="snap__row" id="stats"></div>
+  </section>
+
+  <!-- ============ DOMINION ============ -->
+  <section class="feat" id="dominion" aria-labelledby="feat-h">
+    <div class="wrap">
+      <div class="feat__top"><span class="dot" aria-hidden="true"></span><h2 class="meta" id="feat-h">Next event</h2></div>
+      <div class="feat__main">
+        <div>
+          <div class="feat__grid">
+            <div>
+              <span class="num feat__date" id="fDate"></span>
+              <span class="feat__mo" id="fMonth"></span>
+            </div>
+            <div>
+              <h3 class="dsp feat__name" id="fName"></h3>
+              <span class="meta feat__ed" id="fEdition"></span>
+              <dl class="feat__spec">
+                <div><dt>Starts</dt><dd id="fTime"></dd></div>
+                <div><dt>Venue</dt><dd id="fVenue"></dd></div>
+                <div><dt>Entry</dt><dd id="fEntry"></dd></div>
+                <div><dt>Prizes</dt><dd id="fPrize"></dd></div>
+                <div><dt>Audience</dt><dd id="fAud"></dd></div>
+                <div><dt>Registration closes</dt><dd id="fClose"></dd></div>
+              </dl>
+              <a class="btn" data-link="register" href="#"><span>Register</span><span aria-hidden="true">&rarr;</span></a>
+            </div>
+          </div>
+          <div class="titles" id="titles"></div>
+        </div>
+        <figure class="feat__poster">
+          <img src="img/dominion-2026-poster.png" alt="Dominion 2026 tournament poster">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ENTRY RULES ============ -->
+  <section class="rules wrap" id="rules" aria-labelledby="rules-h">
+    <div class="sec__head">
+      <h2 class="dsp t-sec" id="rules-h">How entry works</h2>
+      <span class="meta sec__tag">First come, first served</span>
+    </div>
+    <hr class="rule rule--draw">
+    <div class="rules__list" id="rulesList"></div>
+  </section>
+
+  <!-- ============ ACHIEVEMENTS ============ -->
+  <section class="ach wrap" id="achievements" aria-labelledby="ach-h">
+    <div class="sec__head"><h2 class="dsp t-sec" id="ach-h">Representing<br>the university</h2></div>
+    <hr class="rule rule--draw">
+    <div class="ach__list" id="achList"></div>
+  </section>
+
+  <!-- ============ ARCHIVE ============ -->
+  <section class="arch wrap" id="archive" aria-labelledby="arch-h">
+    <div class="sec__head"><h2 class="dsp t-sec" id="arch-h">Tournaments we ran</h2></div>
+    <div id="archRows"></div>
+  </section>
+
+  <!-- ============ TEAM ============ -->
+  <section class="roster wrap" id="team" aria-labelledby="roster-h">
+    <div class="sec__head"><h2 class="dsp t-sec" id="roster-h">The people behind it</h2></div>
+    <div class="core" id="core"></div>
+    <div class="mlist" id="members"></div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about wrap" id="about" aria-labelledby="about-h">
+    <div class="about__grid">
+      <h2 class="dsp about__h" id="about-h">More than<br><em>a game.</em></h2>
+      <div class="about__body">
+        <p>E-Sports Club CUJ is the competitive gaming community of Central University of Jammu, bringing together players, creators and gaming enthusiasts.</p>
+        <p class="muted">Draft copy — rewrite this without touching the layout.</p>
+      </div>
+    </div>
+    <div class="princ" id="princ"></div>
+  </section>
+
+  <!-- ============ COMMUNITY ============ -->
+  <section class="comm wrap" id="community" aria-labelledby="comm-h">
+    <div class="sec__head"><h2 class="meta" id="comm-h">Where the club lives</h2></div>
+    <a class="link" href="https://instagram.com/esportscuj" target="_blank" rel="noopener">
+      <span class="link__fill" aria-hidden="true"></span>
+      <span class="link__in"><span class="dsp link__n">Instagram</span><span class="meta link__s">@esportscuj — posters, results, announcements</span></span>
+      <span class="link__a" aria-hidden="true">&#8599;</span>
+    </a>
+    <a class="link" href="https://discord.gg/XjHQFpmRe" target="_blank" rel="noopener">
+      <span class="link__fill" aria-hidden="true"></span>
+      <span class="link__in"><span class="dsp link__n">Discord</span><span class="meta link__s">discord.gg/XjHQFpmRe — scrims, teams, day-to-day</span></span>
+      <span class="link__a" aria-hidden="true">&#8599;</span>
+    </a>
+  </section>
+
+  <!-- ============ FINAL ============ -->
+  <section class="final" aria-labelledby="final-h">
+    <div class="wrap">
+      <h2 class="dsp final__h" id="final-h">Ready<br>to play?</h2>
+      <div class="final__b">
+        <span class="meta">Dominion 2026 — 15 September, open to every department</span>
+        <a class="btn" data-link="register" href="#"><span>Register</span><span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot wrap">
+  <div class="foot__grid">
+    <div>
+      <div class="foot__marks">
+        <img src="img/logo-esports-cuj.png" alt="E-Sports Club CUJ">
+        <img src="img/logo-cuj-university.png" alt="Central University of Jammu">
+      </div>
+      <p class="dsp foot__mark">E-Sports<br>CUJ</p>
+      <p class="meta muted" style="margin-top:12px">Central University of Jammu</p>
+    </div>
+    <nav class="foot__col" aria-label="Footer sections">
+      <p class="meta muted">Sections</p>
+      <ul><li><a href="#dominion">Dominion</a></li><li><a href="#rules">Entry</a></li><li><a href="#achievements">Achievements</a></li><li><a href="#archive">Archive</a></li><li><a href="#team">Team</a></li></ul>
+    </nav>
+    <nav class="foot__col" aria-label="Social">
+      <p class="meta muted">Elsewhere</p>
+      <ul>
+        <li><a href="https://instagram.com/esportscuj" target="_blank" rel="noopener">Instagram &#8599;</a></li>
+        <li><a href="https://discord.gg/XjHQFpmRe" target="_blank" rel="noopener">Discord &#8599;</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="foot__bot meta muted">
+    <span>E-Sports Club CUJ</span>
+    <span>Built by the club</span>
+  </div>
+</footer>
+</div>
+
+<script>
+/* ============================================================
+   THE ONE THING TO FILL IN.
+   Paste the central registration site URL below. Empty string
+   leaves every Register button in a dashed "pending" state
+   with a note, so no button ever points nowhere.
+   ============================================================ */
+const LINKS = {
+  register: ""    // <-- central all-clubs registration site
+};
+const PENDING_NOTE = {
+  register: "Registration link goes live shortly"
+};
+
+const SITE = {
+  event:{
+    name:"Dominion 2026", edition:"Engineering Day 2026 \u00B7 an esports event",
+    day:"15", month:"September 2026", time:"11:00 am onward",
+    venue:"Pre-Fabricated Building", entry:"Free", prize:"To be announced",
+    audience:"Screen plays for the audience", closes:"13 September 2026",
+    plays:"15 Sep, 11:00 am", titles:"BGMI \u00B7 Free Fire"
+  },
+  titles:[
+    {name:"BGMI", fmt:"Squads of 2\u20134"},
+    {name:"Free Fire", fmt:"Squads of 2\u20134"}
+  ],
+  rules:[
+    {t:"Two teams per department", d:"Each department may register up to two teams per game. Slots go first come, first served."},
+    {t:"Ten teams per game", d:"BGMI and Free Fire each cap at ten teams. Once a game fills, it closes."},
+    {t:"No mixed departments", d:"Every member of a team must be from the same department. Inter-department teams are not accepted."},
+    {t:"Squads of two to four", d:"Both titles take squads of at least two and at most four players."},
+    {t:"Free to enter", d:"There is no entry fee. Prizes will be announced before the event."}
+  ],
+  stats:[
+    {v:"03", l:"Tournaments run"},
+    {v:"02", l:"Titles at Dominion"},
+    {v:"13", l:"Club members"},
+    {v:"01", l:"Inter-college title"}
+  ],
+  achievements:[
+    {pos:"1", posLabel:"Champions", gold:true,  title:"BGMI \u2014 Champions", host:"Convoquer '25, IIT Jammu", year:"2025"},
+    {pos:"3", posLabel:"Bronze",    gold:false, title:"Valorant \u2014 Bronze",  host:"Convoquer '25, IIT Jammu", year:"2025"}
+  ],
+  archive:[
+    {
+      year:"2024", title:"Tyrants League", game:"Valorant", date:"22 February 2024",
+      venue:"PMMM IT Lab", img:"img/tyrants-league-2024.png",
+      note:"Run as part of UDAAN 2024 with the Office of the Dean, Students' Welfare."
+    },
+    {
+      year:"2024", title:"Scholars \u2014 Survival", game:"BGMI", date:"15 September 2024",
+      venue:"Central University of Jammu", img:"img/scholars-survival-2024.png",
+      note:"An Engineers' Day tournament, run with the Department of CSE."
+    },
+    {
+      year:"2025", title:"Headshot Havoc", game:"Valorant", date:"23\u201324 September 2025",
+      venue:"PMMM IT Lab", img:"img/headshot-havoc-2025.png",
+      note:"5v5, open to all departments, with PCs provided for the university matches."
+    }
+  ],
+  core:[
+    {role:"President \u00B7 Convenor", name:"Naman Khajuria", yr:"CSE \u00B7 3rd year", tel:"+91 80821 94395"},
+    {role:"Vice President \u00B7 Co-Convenor", name:"Laksh Jamwal", yr:"CSE \u00B7 4th year", tel:"+91 60067 15305"}
+  ],
+  /* alphabetical by first name */
+  members:[
+    "Akash Salan","Anandi Mahajan","Mahi Priyadarshi","Navam Choudhary",
+    "Nishkarsh Jandial","Rudrakshi Choudhary","Ruhaan Fariz","Sahil Khanna",
+    "Sahil Verma","Tanmay Tripathi","Tavprasad Singh"
+  ],
+  membersNote:"All members CSE \u00B7 3rd year",
+  principles:[
+    {w:"Compete", d:"Run tournaments on campus that people actually want to win."},
+    {w:"Create", d:"Posters, casts, clips and coverage made by students."},
+    {w:"Connect", d:"A room, a server, and a reason for players across departments to meet."}
+  ]
+};
+
+const $=(s,c)=>(c||document).querySelector(s);
+const $$=(s,c)=>[...(c||document).querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pad2=n=>String(n).padStart(2,"0");
+
+/* ---- outbound link, with a safe pending state ---- */
+$$("[data-link]").forEach(a=>{
+  const k=a.dataset.link, url=LINKS[k];
+  if(url){a.href=url;a.target="_blank";a.rel="noopener";a.classList.remove("is-pending")}
+  else{
+    a.classList.add("is-pending");
+    a.removeAttribute("href");
+    a.setAttribute("role","link");
+    a.setAttribute("aria-disabled","true");
+    a.title=PENDING_NOTE[k];
+  }
+});
+$$("[data-note]").forEach(n=>{
+  n.textContent = LINKS[n.dataset.note] ? "" : PENDING_NOTE[n.dataset.note];
+});
+
+/* ---- event ---- */
+const e=SITE.event;
+$("#rEvent").textContent=e.name;
+$("#rDate").textContent=e.plays;
+$("#rTitles").textContent=e.titles;
+$("#rEntry").textContent=e.entry;
+$("#rClose").textContent=e.closes;
+$("#fDate").textContent=e.day;
+$("#fMonth").textContent=e.month;
+$("#fName").textContent=e.name;
+$("#fEdition").textContent=e.edition;
+$("#fTime").textContent=e.time;
+$("#fVenue").textContent=e.venue;
+$("#fEntry").textContent=e.entry;
+$("#fPrize").textContent=e.prize;
+$("#fAud").textContent=e.audience;
+$("#fClose").textContent=e.closes;
+
+$("#titles").innerHTML=SITE.titles.map(t=>`
+  <div class="titles__i">
+    <span class="titles__n">${esc(t.name)}</span>
+    <span class="meta titles__f">${esc(t.fmt)}</span>
+  </div>`).join("");
+
+/* ---- ticker ---- */
+const tick=["Dominion 2026","15 September \u00B7 11:00 am","BGMI","Free Fire","Pre-Fabricated Building","Convoquer '25 \u2014 BGMI Champions"];
+const tickHTML=tick.map(t=>`<span>${esc(t)}</span><span class="acc">&#9670;</span>`).join("");
+$("#tk").innerHTML=tickHTML;$("#tk2").innerHTML=tickHTML;
+
+/* ---- stats ---- */
+$("#stats").innerHTML=SITE.stats.map(s=>
+  `<div class="snap__item"><span class="num snap__n">${esc(s.v)}</span><span class="meta snap__l">${esc(s.l)}</span></div>`).join("");
+
+/* ---- rules ---- */
+$("#rulesList").innerHTML=SITE.rules.map((r,i)=>`
+  <div class="rules__i">
+    <b>${pad2(i+1)}</b>
+    <span><span class="rules__t">${esc(r.t)}</span><span class="rules__d">${esc(r.d)}</span></span>
+  </div>`).join("");
+
+/* ---- achievements ---- */
+$("#achList").innerHTML=SITE.achievements.map(a=>`
+  <div class="ach__i"${a.gold?" data-gold":""}>
+    <div class="ach__pos"><b>${esc(a.pos)}</b><span>${esc(a.posLabel)}</span></div>
+    <div><h3 class="ach__ttl">${esc(a.title)}</h3><p class="meta muted ach__sub">${esc(a.host)}</p></div>
+    <span class="meta muted ach__r">${esc(a.year)}</span>
+  </div>`).join("");
+
+/* ---- archive ---- */
+$("#archRows").innerHTML=SITE.archive.map(a=>`
+  <article class="ev">
+    <figure class="ev__fig">
+      <span class="ev__yr">${esc(a.year)}</span>
+      <img src="${esc(a.img)}" alt="Poster for ${esc(a.title)}" loading="lazy">
+    </figure>
+    <div>
+      <h3 class="dsp ev__n">${esc(a.title)}</h3>
+      <dl class="ev__meta">
+        <div><dt class="meta muted">Game</dt><dd>${esc(a.game)}</dd></div>
+        <div><dt class="meta muted">Date</dt><dd>${esc(a.date)}</dd></div>
+        <div><dt class="meta muted">Venue</dt><dd>${esc(a.venue)}</dd></div>
+      </dl>
+      <p class="ev__note">${esc(a.note)}</p>
+    </div>
+  </article>`).join("");
+
+/* ---- team ---- */
+$("#core").innerHTML=SITE.core.map((c,i)=>`
+  <article class="core__i">
+    <span class="core__idx">${pad2(i+1)}</span>
+    <span class="core__role">${esc(c.role)}</span>
+    <span class="core__name">${esc(c.name)}</span>
+    <span class="meta muted core__yr">${esc(c.yr)}</span>
+    <a class="meta core__tel" href="tel:${esc(c.tel.replace(/\s/g,""))}">${esc(c.tel)}</a>
+  </article>`).join("");
+
+$("#members").innerHTML=
+  `<div class="mrow mrow--h"><span class="mrow__i"></span><span class="meta muted">Members</span><span class="meta muted">${esc(SITE.membersNote)}</span></div>`
+  + SITE.members.map((m,i)=>`
+  <div class="mrow">
+    <span class="mrow__i">${pad2(i+1)}</span>
+    <span class="mrow__n">${esc(m)}</span>
+    <span class="meta muted"></span>
+  </div>`).join("");
+
+/* ---- principles ---- */
+$("#princ").innerHTML=SITE.principles.map(p=>
+  `<div class="princ__i"><h3 class="dsp princ__w">${esc(p.w)}</h3><p class="princ__d muted">${esc(p.d)}</p></div>`).join("");
+
+/* ---- mobile sheet ---- */
+const sheet=$("#sheet"),burger=$("#burger");
+function openSheet(o){
+  if(o){sheet.hidden=false;requestAnimationFrame(()=>sheet.classList.add("is-open"))}
+  else{sheet.classList.remove("is-open");setTimeout(()=>{sheet.hidden=true},420)}
+  burger.setAttribute("aria-expanded",String(o));
+  document.body.style.overflow=o?"hidden":"";
+}
+burger.addEventListener("click",()=>openSheet(true));
+$("#burgerClose").addEventListener("click",()=>openSheet(false));
+$$(".sheet__nav a").forEach(a=>a.addEventListener("click",()=>openSheet(false)));
+addEventListener("keydown",ev=>{if(ev.key==="Escape"&&!sheet.hidden)openSheet(false)});
+
+/* ---- scroll ---- */
+const bar=$("#bar"),prog=$("#prog");
+addEventListener("scroll",()=>{
+  bar.classList.toggle("is-stuck",scrollY>36);
+  const max=document.body.scrollHeight-innerHeight;
+  prog.style.height=(max>0?(scrollY/max)*100:0)+"%";
+},{passive:true});
+
+if("IntersectionObserver" in window){
+  const io=new IntersectionObserver(es=>es.forEach(x=>{
+    if(x.isIntersecting){x.target.classList.add("is-in");io.unobserve(x.target)}
+  }),{threshold:.6});
+  $$(".rule--draw").forEach(r=>io.observe(r));
+}
+
+requestAnimationFrame(()=>$(".hero").classList.add("is-ready"));
+</script>
+</body>
+</html>
