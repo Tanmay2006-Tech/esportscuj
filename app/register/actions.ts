@@ -152,7 +152,8 @@ export async function registerAction(
 
   // Same-department check, via the department segment of each roll number.
   // Roll numbers that don't match the expected pattern are skipped rather
-  // than rejected, so the club can verify those by hand.
+  // than rejected, so the club can verify those by hand — but every skip is
+  // recorded in dept_check_note so those rows are easy to find in the export.
   const iglDept = rollDepartmentCode(igl.roll);
   if (iglDept) {
     for (const p of players.slice(1)) {
@@ -164,6 +165,18 @@ export async function registerAction(
         };
       }
     }
+  }
+
+  const unverifiedRoles = players
+    .filter((p) => !rollDepartmentCode(p.roll))
+    .map((p) => p.role);
+
+  let deptCheckNote: string | null = null;
+  if (unverifiedRoles.length === players.length) {
+    deptCheckNote =
+      "Not verified — no roll number in this team matched the expected pattern.";
+  } else if (unverifiedRoles.length > 0) {
+    deptCheckNote = `Not verified for: ${unverifiedRoles.join(", ")}.`;
   }
 
   const { error } = await supabaseAdmin.from("registrations").insert({
@@ -189,6 +202,7 @@ export async function registerAction(
     p4_ign: p4Result.player?.ign ?? null,
     p4_uid: p4Result.player?.uid ?? null,
     p4_roll: p4Result.player?.roll ?? null,
+    dept_check_note: deptCheckNote,
   });
 
   if (error) {

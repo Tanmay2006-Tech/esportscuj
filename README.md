@@ -133,7 +133,8 @@ create table registrations (
   p2_uid      text not null,
   p2_roll     text not null,
   p3_name     text, p3_ign text, p3_uid text, p3_roll text,
-  p4_name     text, p4_ign text, p4_uid text, p4_roll text
+  p4_name     text, p4_ign text, p4_uid text, p4_roll text,
+  dept_check_note text
 );
 
 alter table registrations enable row level security;
@@ -199,3 +200,24 @@ Checked in this order:
     verify by hand.
 
 No slot caps, no per-department limits, no cross-team UID check (see above).
+
+### `dept_check_note` — finding teams that need manual department checks
+
+The roll pattern above only matches BE programmes (`YYBE<DEPT><NUMBER>`).
+Dominion is open to every department, so students on MBA, MA, MSc and other
+non-BE programmes will have roll numbers that don't match — the same-department
+check is skipped for them rather than rejecting the team. That skip is not
+silent: every insert sets `dept_check_note`, either `null` (every player's
+roll matched the pattern, so the check actually ran) or a message naming which
+roles didn't match, e.g. `"Not verified for: Player 3."`.
+
+Before the event, filter the exported CSV for a non-empty `dept_check_note`
+and verify those specific players by hand — everyone else has already been
+checked automatically. In the Supabase SQL editor:
+
+```sql
+select team_name, game, dept_check_note
+from registrations
+where dept_check_note is not null
+order by created_at;
+```
