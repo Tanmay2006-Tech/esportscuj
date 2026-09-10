@@ -2,7 +2,8 @@
 
 import { useActionState, useState } from "react";
 import { GAMES, type Game } from "@/lib/registration";
-import { initialRegisterState, registerAction } from "./actions";
+import { registerAction } from "./actions";
+import { initialRegisterState } from "./types";
 
 const YEARS = ["1st Year", "2nd Year", "3rd Year", "4th Year"] as const;
 const SEMESTERS = [

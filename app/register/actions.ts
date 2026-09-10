@@ -8,31 +8,7 @@ import {
   rollDepartmentCode,
   type Game,
 } from "@/lib/registration";
-
-export type PlayerSummary = {
-  role: string;
-  name: string;
-  ign: string;
-  uid: string;
-  roll: string;
-};
-
-export type SubmissionSummary = {
-  game: Game;
-  teamName: string;
-  department: string;
-  year: string;
-  semester: string;
-  iglPhone: string;
-  players: PlayerSummary[];
-};
-
-export type RegisterActionState =
-  | { status: "idle" }
-  | { status: "error"; message: string }
-  | { status: "success"; submission: SubmissionSummary };
-
-export const initialRegisterState: RegisterActionState = { status: "idle" };
+import type { RegisterActionState } from "./types";
 
 function field(formData: FormData, name: string): string {
   const value = formData.get(name);
