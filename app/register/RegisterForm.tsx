@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import { RULEBOOKS } from "@/data/rulebooks";
 import { GAMES, type Game } from "@/lib/registration";
 import { registerAction } from "./actions";
 import { initialRegisterState } from "./types";
@@ -212,6 +213,49 @@ export function RegisterForm() {
             </label>
           ))}
         </div>
+        <div className="rulebooks" aria-label="Game rulebooks">
+          {GAMES.map((g) => {
+            const rulebook = RULEBOOKS[g];
+            return (
+              <article
+                key={g}
+                className={`rulebook${game === g ? " rulebook--selected" : ""}`}
+              >
+                <div>
+                  <p className="rulebook__game">{g}</p>
+                  <p className="rulebook__label">Dominion 2026 rulebook</p>
+                </div>
+                {rulebook.available ? (
+                  <a
+                    className="rulebook__link"
+                    href={rulebook.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Open PDF <span aria-hidden="true">↗</span>
+                  </a>
+                ) : (
+                  <span className="rulebook__pending">PDF coming soon</span>
+                )}
+              </article>
+            );
+          })}
+        </div>
+        <p className="rulebooks__note">
+          Select your game and read its official rulebook before submitting.
+          PDFs open in a new tab for easier viewing on mobile.
+        </p>
+        {game && RULEBOOKS[game].available ? (
+          <label className="rulebook-accept" key={game}>
+            <input
+              type="checkbox"
+              name="rulebookAccepted"
+              value={game}
+              required
+            />
+            <span>I have read and accept the {game} rulebook.</span>
+          </label>
+        ) : null}
       </fieldset>
 
       <fieldset className="field-group">

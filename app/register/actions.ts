@@ -8,6 +8,7 @@ import {
   rollDepartmentCode,
   type Game,
 } from "@/lib/registration";
+import { RULEBOOKS } from "@/data/rulebooks";
 import type { RegisterActionState } from "./types";
 
 function field(formData: FormData, name: string): string {
@@ -57,6 +58,17 @@ export async function registerAction(
   const game = field(formData, "game");
   if (!GAMES.includes(game as Game)) {
     return { status: "error", message: "Select a game." };
+  }
+
+  const selectedGame = game as Game;
+  if (
+    RULEBOOKS[selectedGame].available &&
+    field(formData, "rulebookAccepted") !== selectedGame
+  ) {
+    return {
+      status: "error",
+      message: `Read and accept the ${selectedGame} rulebook before submitting.`,
+    };
   }
 
   const teamName = field(formData, "teamName");
@@ -192,7 +204,7 @@ export async function registerAction(
   return {
     status: "success",
     submission: {
-      game: game as Game,
+      game: selectedGame,
       teamName,
       department,
       year,

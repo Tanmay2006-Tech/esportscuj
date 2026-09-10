@@ -3,34 +3,27 @@
 Website for the E-Sports Club of Central University of Jammu, built around
 **Dominion 2026** — the Engineering Day esports event, 15 September 2026.
 
-Two things live in this repo right now:
-
-- **`index.html`** — the original static site. No build step, no
-  dependencies, no backend. Stays deployed as-is until the Next.js app below
-  passes its own checklist.
-- **A Next.js app** (`app/`, `data/`, `lib/`) — the replacement, being built
-  in steps. Currently only `/register` is functional; `/` is a placeholder.
-
-The static site's docs are below, unchanged. The Next.js app is documented
-further down under **Next.js app**.
+This is one Next.js app. The designed homepage is preserved at
+`public/home.html` and served at `/` through a rewrite; `/register` is the
+serverless registration flow backed by Supabase.
 
 ## Deploy on Vercel
 
 1. Push this folder to a GitHub repo.
 2. Vercel → **Add New → Project → Import** the repo.
-3. Framework preset: **Other**. Leave build command and output directory empty.
+3. Framework preset: **Next.js**. Keep the default build and output settings.
 4. Deploy.
 
 Every push to `main` redeploys automatically.
-Local preview: `python3 -m http.server 8000`, then open `localhost:8000`.
+Local preview: `npm run dev`, then open `localhost:3000`.
 
 ## The one thing to fill in
 
-Near the top of the `<script>` block in `index.html`:
+Near the top of the `<script>` block in `public/home.html`:
 
 ```js
 const LINKS = {
-  register: ""    // <-- central all-clubs registration site
+  register: "/register"
 };
 ```
 
@@ -40,7 +33,7 @@ nowhere. Paste the URL and every one of them activates.
 
 ## Editing content
 
-All copy lives in the `SITE` object in `index.html`. Nothing is hardcoded in the
+All copy lives in the `SITE` object in `public/home.html`. Nothing is hardcoded in the
 markup except the About paragraphs.
 
 | Key | Controls |
@@ -57,10 +50,10 @@ markup except the About paragraphs.
 
 | File | Use |
 |---|---|
-| `dominion-2026-poster.png` | Event poster + social link preview |
-| `logo-esports-cuj.png` | Club logo — rail, nav, footer |
-| `logo-cuj-university.png` | University crest — hero, rail, footer |
-| `favicon.png` | Browser tab icon |
+| `public/img/dominion-2026-poster.png` | Event poster + social link preview |
+| `public/img/logo-esports-cuj.png` | Club logo — rail, nav, footer |
+| `public/img/logo-cuj-university.png` | University crest — hero, rail, footer |
+| `public/img/favicon.png` | Browser tab icon |
 
 Past tournaments carry no imagery — they're a text archive.
 
@@ -98,6 +91,18 @@ npm install
 cp .env.local.example .env.local   # fill in the two Supabase values below
 npm run dev
 ```
+
+### Rulebook PDFs
+
+The registration UI has mobile-friendly slots for both game rulebooks. Add the
+final PDFs at these paths:
+
+```
+public/rulebooks/dominion-2026-bgmi.pdf
+public/rulebooks/dominion-2026-free-fire.pdf
+```
+
+Then set each matching `available` flag to `true` in `data/rulebooks.ts`.
 
 ### Environment variables
 
