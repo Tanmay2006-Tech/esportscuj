@@ -7,6 +7,10 @@ This is one Next.js app. The designed homepage is preserved at
 `public/home.html` and served at `/` through a rewrite; `/register` is the
 serverless registration flow backed by Supabase.
 
+The root `index.html` is only a compatibility redirect for the retired
+`esportscuj.vercel.app` static project. The canonical application is
+`https://esports-cuj.vercel.app`.
+
 ## Deploy on Vercel
 
 1. Push this folder to a GitHub repo.
