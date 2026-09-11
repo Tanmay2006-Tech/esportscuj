@@ -202,9 +202,7 @@ Checked in this order:
    filled, all four must be.
 9. No duplicate in-game UID within the submission (trimmed, case-insensitive).
 
-No slot caps, no per-department limits, no cross-team UID check (see above).
-The selected department and every player's roll number are stored for export
-and on-the-day ID checks, but roll numbers are not parsed to infer department.
+
 
 ### `dept_check_note`
 
