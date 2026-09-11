@@ -5,7 +5,6 @@ import {
   GAMES,
   isRegistrationClosed,
   normalizePhone,
-  rollDepartmentCode,
   type Game,
 } from "@/lib/registration";
 import { RULEBOOKS } from "@/data/rulebooks";
@@ -138,35 +137,6 @@ export async function registerAction(
     seenUids.set(key, p.role);
   }
 
-  // Same-department check, via the department segment of each roll number.
-  // Roll numbers that don't match the expected pattern are skipped rather
-  // than rejected, so the club can verify those by hand — but every skip is
-  // recorded in dept_check_note so those rows are easy to find in the export.
-  const iglDept = rollDepartmentCode(igl.roll);
-  if (iglDept) {
-    for (const p of players.slice(1)) {
-      const dept = rollDepartmentCode(p.roll);
-      if (dept && dept !== iglDept) {
-        return {
-          status: "error",
-          message: `${p.role}'s roll number is from a different department than the IGL's.`,
-        };
-      }
-    }
-  }
-
-  const unverifiedRoles = players
-    .filter((p) => !rollDepartmentCode(p.roll))
-    .map((p) => p.role);
-
-  let deptCheckNote: string | null = null;
-  if (unverifiedRoles.length === players.length) {
-    deptCheckNote =
-      "Not verified — no roll number in this team matched the expected pattern.";
-  } else if (unverifiedRoles.length > 0) {
-    deptCheckNote = `Not verified for: ${unverifiedRoles.join(", ")}.`;
-  }
-
   const { error } = await supabaseAdmin.from("registrations").insert({
     game,
     team_name: teamName,
@@ -190,7 +160,7 @@ export async function registerAction(
     p4_ign: p4Result.player?.ign ?? null,
     p4_uid: p4Result.player?.uid ?? null,
     p4_roll: p4Result.player?.roll ?? null,
-    dept_check_note: deptCheckNote,
+    dept_check_note: null,
   });
 
   if (error) {

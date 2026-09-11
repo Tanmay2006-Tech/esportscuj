@@ -21,15 +21,3 @@ export function normalizePhone(raw: string): string | null {
   if (value.startsWith("0")) value = value.slice(1);
   return /^\d{10}$/.test(value) ? value : null;
 }
-
-// University roll numbers look like "24BECSE62": 2-digit intake year,
-// programme "BE", then a department code, then a trailing number. Only the
-// department code is used for the same-department check. Rolls that don't
-// match this shape return null so callers can skip the check and let the
-// club verify by hand, rather than rejecting the team.
-const ROLL_PATTERN = /^\d{2}BE([A-Z]{2,6})\d{2,4}$/i;
-
-export function rollDepartmentCode(roll: string): string | null {
-  const match = roll.trim().toUpperCase().match(ROLL_PATTERN);
-  return match ? match[1] : null;
-}

@@ -201,32 +201,12 @@ Checked in this order:
 8. Players 3 and 4 are all-or-nothing — if any of their four fields is
    filled, all four must be.
 9. No duplicate in-game UID within the submission (trimmed, case-insensitive).
-10. Same-department check: each player's roll number is parsed against
-    `/^\d{2}BE([A-Z]{2,6})\d{2,4}$/i` (e.g. `24BECSE62` → department `CSE`).
-    If a player's parsed department differs from the IGL's, the team is
-    rejected, naming that player. A roll number that doesn't match the
-    pattern is **not** rejected — it's accepted and left for the club to
-    verify by hand.
 
 No slot caps, no per-department limits, no cross-team UID check (see above).
+The selected department and every player's roll number are stored for export
+and on-the-day ID checks, but roll numbers are not parsed to infer department.
 
-### `dept_check_note` — finding teams that need manual department checks
+### `dept_check_note`
 
-The roll pattern above only matches BE programmes (`YYBE<DEPT><NUMBER>`).
-Dominion is open to every department, so students on MBA, MA, MSc and other
-non-BE programmes will have roll numbers that don't match — the same-department
-check is skipped for them rather than rejecting the team. That skip is not
-silent: every insert sets `dept_check_note`, either `null` (every player's
-roll matched the pattern, so the check actually ran) or a message naming which
-roles didn't match, e.g. `"Not verified for: Player 3."`.
-
-Before the event, filter the exported CSV for a non-empty `dept_check_note`
-and verify those specific players by hand — everyone else has already been
-checked automatically. In the Supabase SQL editor:
-
-```sql
-select team_name, game, dept_check_note
-from registrations
-where dept_check_note is not null
-order by created_at;
-```
+The existing column remains in the table for compatibility. New registrations
+always insert `null`; no database migration is required.
