@@ -10,6 +10,10 @@ export const metadata: Metadata = {
 export default function RegisterPage() {
   return (
     <main className="register wrap">
+      <nav className="page-nav" aria-label="Page navigation">
+        <a href="/">Home</a>
+        <a href="/rulebooks">Rulebooks</a>
+      </nav>
       <div className="register__intro">
         <p className="meta">Dominion 2026 registration</p>
         <h1 className="dsp">Register your squad</h1>
