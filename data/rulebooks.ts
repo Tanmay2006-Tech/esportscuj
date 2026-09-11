@@ -11,11 +11,11 @@ export const RULEBOOKS: Record<Game, Rulebook> = {
   BGMI: {
     game: "BGMI",
     href: "/rulebooks/dominion-2026-bgmi.pdf",
-    available: false,
+    available: true,
   },
   "Free Fire": {
     game: "Free Fire",
     href: "/rulebooks/dominion-2026-free-fire.pdf",
-    available: false,
+    available: true,
   },
 };
